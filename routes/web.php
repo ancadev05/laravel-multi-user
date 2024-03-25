@@ -32,5 +32,8 @@ Route::get('/home', function(){
 // halaman yang hanya bisa diakses setelah login
 Route::middleware(['auth'])->group(function(){
     Route::get('/admin', [AdminController::class, 'index']);
+    Route::get('/admin/operator', [AdminController::class, 'operator'])->middleware('userAkses:operator');
+    Route::get('/admin/keuangan', [AdminController::class, 'keuangan'])->middleware('userAkses:keuangan');
+    Route::get('/admin/marketing', [AdminController::class, 'marketing'])->middleware('userAkses:marketing');
     Route::get('/logout', [SesiController::class, 'logout']);
 });

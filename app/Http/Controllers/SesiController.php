@@ -33,8 +33,14 @@ class SesiController extends Controller
 
         //  proses pengecekan jika email dan password terdaftar
         if (Auth::attempt($infologin)) {
-            return redirect('/admin');
-            exit();
+            // mengarahkan kehalaman sesuai dengan jenis role 
+            if(Auth::user()->role == 'operator'){
+                return redirect('admin/operator');
+            } elseif (Auth::user()->role == 'keuangan'){
+                return redirect('admin/keuangan');
+            } elseif (Auth::user()->role == 'marketing'){
+                return redirect('admin/marketing');
+            }
         } else {
             return redirect('')->withErrors('username dan password tidak sesuai')->withInput();
         }

@@ -9,8 +9,19 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $data = Auth::user()->name;
-        // dd($data);
-        return view('admin')->with('data', $data);
+        return view('admin');
+    }
+
+    public function operator()
+    {
+        return view('admin');
+    }
+    public function keuangan()
+    {
+        return view('admin');
+    }
+    public function marketing()
+    {
+        return view('admin');
     }
 }
