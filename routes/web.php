@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SesiController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,18 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// halaman yang hanya bisa diakses jika belum login
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', [SesiController::class, 'index'])->name('login');
+    Route::post('/', [SesiController::class, 'login']);
+});
+// route jika ada yang sudah login namun coba mengakses halaman login
+Route::get('/home', function(){
+    return redirect('/admin');
+});
 
-Route::get('/', [SesiController::class,'index']);
+// halaman yang hanya bisa diakses setelah login
+Route::middleware(['auth'])->group(function(){
+    Route::get('/admin', [AdminController::class, 'index']);
+    Route::get('/logout', [SesiController::class, 'logout']);
+});
